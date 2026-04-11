@@ -1,14 +1,17 @@
 {
   "site": {
     "trailing_slash": true,
-    "favicon": "/favicon.ico"
+    "favicon": "/favicon.ico",
+    "title": "hieupn blog",
+    "description": "A description of my awesome site.",
+    "base_url": "https://hieupn.com"
   },
 
   "settings": {
+    "meta_description": "A description of my awesome site."
   },
 
-  "metadata": {
-  },
+  "metadata": {},
 
   "params": {
     "contact_form_action": "#"

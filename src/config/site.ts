@@ -4,7 +4,7 @@ export const siteConfig = {
   lang: "en",
   
   // Site details from config.json:site
-  title: "Bit Doze Astro Blog Theme", // from config.json:site.title
+  title: "hieupn blog", // from config.json:site.title
   // description is used from existing site.ts, will be updated by config.json:metadata.meta_description
   // url is removed, Astro.site will be used
 
@@ -12,7 +12,7 @@ export const siteConfig = {
   logo: "/logo.svg",
   logoWidth: "200",
   logoHeight: "30",
-  logoText: "Bit Doze Astro Blog Theme",
+  logoText: "hieupn blog",
 
   // SEO metadata from config.json:metadata
   author: "Your Name", // from config.json:metadata.meta_author
