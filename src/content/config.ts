@@ -57,11 +57,12 @@ const pagesCollection = defineCollection({
 // About collection schema
 const aboutCollection = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) =>
+    z.object({
     title: z.string(),
     meta_title: z.string().optional(),
     description: z.string().optional(),
-    image: z.string().optional(),
+    image: image().optional(),
     draft: z.boolean().optional(),
     what_i_do: z.object({
       title: z.string(),

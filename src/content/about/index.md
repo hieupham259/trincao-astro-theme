@@ -1,8 +1,7 @@
 ---
 title: "About Hieu"
 meta_title: "About Hieu"
-# image: "/../../assets/images/profile.png"
-image: "/src/assets/images/profile.png"
+image: "../../assets/images/profile.png"
 description: "Pham Nhat Hieu is a backend-focused software engineer building cloud-ready products with a strong DevOps mindset."
 draft: false
 
