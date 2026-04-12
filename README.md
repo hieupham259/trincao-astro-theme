@@ -1,201 +1,298 @@
-# Bitdoze Astro Blog Theme
+# HieuPN Astro Blog
 
-A modern, responsive blog theme for Astro with support for tags, categories, and series. This theme is designed to be fast, SEO-friendly, and easy to customize.
+This repository powers a personal blog and profile site built with Astro 5, MDX, Tailwind CSS 4, and client-side search. It combines editorial content, author/category/tag archives, a series index, an about page, and a contact page into a statically generated site.
+
+The current production site URL configured in the project is `https://hieupn.com`.
+
+## Stack
+
+- Astro 5
+- MDX via `@astrojs/mdx`
+- Tailwind CSS 4 via `@tailwindcss/vite`
+- `astro-icon` with Material Design Icons
+- Fuse.js for client-side search
+- `@astrojs/rss` for RSS generation
+- `@astrojs/sitemap` for sitemap generation
 
 ## Features
 
-- 🚀 **Built with Astro** - Benefit from Astro's speed and flexibility
-- 📱 **Fully Responsive** - Looks great on all devices
-- 🎨 **Customizable** - Easy to adapt to your brand
-- 🔍 **SEO Optimized** - Meta tags, Open Graph, and JSON-LD
-- 📝 **Blog Ready** - Support for posts, categories, tags, and series
-- 🔎 **Search Functionality** - Client-side search with Fuse.js
-- 📊 **Pagination** - For blog posts, categories, tags, and authors
-- 📰 **RSS Feed** - Automatically generated RSS feed
-- 🗺️ **Sitemap** - Automatically generated sitemap
-- 🖋️ **MDX Support** - Use components in your markdown
-- 🔤 **Typography** - Beautiful typography with Tailwind CSS
-- 🌙 **Icons** - Easy icon usage with Astro Icon
-- 💡 **FOUC Prevention** - Inline scripts to minimize flash of unstyled content and theme inconsistencies on load.
+- Homepage with hero section and latest post cards
+- Blog index with pagination
+- Category, tag, and author archive pages with pagination
+- Series index page plus in-post series navigation
+- Post detail pages with reading progress, breadcrumbs, table of contents, related posts, and share links
+- Client-side search powered by `/search.json`
+- SEO metadata with canonical URLs, Open Graph, Twitter cards, and JSON-LD
+- RSS feed at `/rss.xml`
+- Sitemap generation with search and paginated pages filtered out
+- Dark mode toggle with localStorage persistence and flash-of-incorrect-theme prevention
+- Reusable MDX widgets available without per-file imports
 
-## Project Structure
-
-```
-├── public/             # Static assets
-├── src/
-│   ├── assets/         # Images and other assets
-│   ├── config/         # Site configuration
-│   ├── content/        # Content collections (blog posts, authors, etc.)
-│   ├── layouts/        # Layout components
-│   ├── pages/          # Page components and routes
-│   ├── styles/         # Global styles
-│   └── utils/          # Utility functions
-├── astro.config.mjs    # Astro configuration
-├── package.json        # Dependencies and scripts
-```
-
-### Key Directories and Files
-
-- **src/config/**: Contains configuration files for the site, menus, and social links
-- **src/content/**: Contains all content collections (blog posts, authors, pages)
-- **src/layouts/**: Contains layout components used throughout the site
-- **src/pages/**: Contains all page components and defines the routing structure
-
-## Components
-
-The theme includes several reusable components:
-
-- **Layout.astro**: Main layout component with header and footer
-- **PostLayout.astro**: Layout for blog posts with metadata and content
-- **Header/Footer**: Navigation and site information
-- **Pagination**: For navigating through multiple pages of content
-- **Search**: Client-side search functionality
-- **Author Card**: Display author information
-- **Post Card**: Display post previews in lists
-- **Tag/Category Cloud**: Display and filter by tags or categories
-
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
-- Node.js (version 16.12.0 or higher)
-- npm, yarn, or pnpm
+- A recent Node.js LTS release. Node.js 20 LTS is the safest default for this project.
+- npm, pnpm, or yarn
 
-### Installation
+### Install and Run
 
-1. Clone this repository:
-   ```bash
-   git clone git@github.com:bitdoze/bitdoze-astro-theme.git my-blog
-   cd my-blog
-   ```
+```bash
+npm install
+npm run dev
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+Open `http://localhost:4321` in your browser.
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+### Build for Production
 
-4. Open your browser and visit `http://localhost:4321`
+```bash
+npm run build
+npm run preview
+```
 
-### Configuration
+## Scripts
 
-Tailor the theme to your needs by updating the following configuration files:
+- `npm run dev`: start the Astro dev server
+- `npm run build`: generate the production build into `dist/`
+- `npm run preview`: preview the production build locally
+- `npm run astro`: run the Astro CLI directly
 
-1.  **Site URL**:
-    *   Set your production site URL in `astro.config.mjs`. Look for the `site` property:
-        ```javascript
-        // astro.config.mjs
-        export default defineConfig({
-          site: 'https://your-domain.com', 
-          // ...
-        });
-        ```
-2.  **Primary Site Metadata & Settings**:
-    *   Update `src/config/site.ts` for essential site details such as:
-        *   `title`: The main title of your site.
-        *   `description`: A brief description for SEO and metadata.
-        *   `author`: Default author name.
-        *   `logoText`: Text displayed next to the logo (if applicable).
-        *   `ogImage`: Path to your default OpenGraph image.
-        *   `postsPerPage`: Number of posts to display on paginated pages.
-        *   `summaryLength`: Default length for post summaries.
-        *   `copyright`: Copyright notice.
-3.  **Menus**:
-    *   Modify `src/config/menu.json` to define navigation links for the header and footer.
-4.  **Social Media Links**:
-    *   Update `src/config/social.json` with your social media profile URLs.
-5.  **Other Specific Configurations (`src/config/config.json`)**:
-    *   The `src/config/config.json` file holds some remaining specific parameters:
-        *   `site.trailing_slash`: Whether to use trailing slashes in URLs (Astro also handles this).
-        *   `params.contact_form_action`: URL endpoint for the contact form (if used).
-        *   `contactinfo`: Your address, email, and phone number for display.
+## Project Structure
 
-### Creating Content
+```text
+.
+|- public/                     # Static files served as-is
+|- src/
+|  |- assets/                 # Source images and favicon assets
+|  |- config/                 # Site, menu, social, and contact configuration
+|  |- content/                # Content collections
+|  |  |- about/               # Single about entry
+|  |  |- authors/             # Author bios
+|  |  |- pages/               # Standalone pages like privacy and terms
+|  |  `- posts/               # Blog posts
+|  |- layouts/                # Shared layouts and UI components
+|  |- pages/                  # Astro routes and generated endpoints
+|  |- styles/                 # Global Tailwind CSS entry point
+|  `- utils/                  # Pagination, dates, reading time helpers
+|- astro.config.mjs           # Astro config and integrations
+|- package.json               # Dependencies and scripts
+`- tsconfig.json              # TypeScript config and import aliases
+```
 
-#### Blog Posts
+## Configuration
 
-Create a new `.md` or `.mdx` file in `src/content/posts/` with the following frontmatter:
+### Runtime Site URL
+
+Set the production domain in `astro.config.mjs` via the `site` field. This value is used by canonical URLs, RSS, sitemap generation, and SEO metadata.
+
+```js
+export default defineConfig({
+    site: 'https://hieupn.com',
+})
+```
+
+### Main Site Metadata
+
+`src/config/site.ts` is the main runtime config for site-wide metadata and archive behavior.
+
+- `title`: default page title
+- `description`: default SEO description
+- `lang`: document language
+- `ogImage`: default social image
+- `postsPerPage`: archive pagination size
+- `noindex.tags`: whether tag archives should be noindexed
+- `noindex.categories`: whether category archives should be noindexed
+- `noindex.authors`: whether author archives should be noindexed
+
+### Navigation
+
+Update `src/config/menu.json` to control header and footer navigation.
+
+- `main`: top navigation, including dropdown groups
+- `footer`: footer links
+
+### Social Links
+
+Update `src/config/social.json` to control the social icons shown in the homepage hero and footer.
+
+### Contact Page
+
+`src/config/config.json` is used by the contact page.
+
+- `params.contact_form_action`: external form POST target
+- `contactinfo.address`: displayed on the contact page
+- `contactinfo.email`: displayed on the contact page
+- `contactinfo.phone`: displayed on the contact page
+
+This project does not include a backend form handler. The contact form posts directly to whatever external endpoint you configure.
+
+### Logo and Favicon
+
+The current site logo and favicon are imported directly from `src/assets/favicons/hieupn_logo_better.svg`.
+
+If you want to rebrand the site, replacing that asset is the simplest starting point.
+
+## Content Model
+
+The project uses Astro content collections defined in `src/content/config.ts`.
+
+### Posts
+
+Create posts in `src/content/posts/`.
 
 ```md
 ---
 title: "Your Post Title"
-meta_title: "SEO Title (optional)"
-description: "Post description for SEO"
-date: 2023-06-01
-image: "../../assets/images/your-image.jpg"
-authors: ["author-id"]
-categories: ["category-name"]
-tags: ["tag1", "tag2"]
-series: ["Series Name", "Part Number"]
+meta_title: "Optional SEO title"
+description: "Short summary used in cards, SEO, and search"
+date: 2026-04-11
+image: "../../assets/images/your-post-image.png"
+authors: ["Pham Nhat Hieu"]
+categories: ["Web Development"]
+tags: ["astro", "mdx", "tailwind"]
+series: ["Astro Basics", "1"]
+canonical: "https://example.com/your-post-title/"
+draft: false
 ---
 
-Your post content goes here...
+Your content goes here.
 ```
 
-#### Authors
+Notes:
 
-Create a new `.md` file in `src/content/authors/` with the following frontmatter:
+- `image` is required for posts and uses Astro's content image pipeline, so use a relative path from the markdown file.
+- `series` is optional and must be a two-item tuple: `[series name, position]`.
+- Category, tag, and author archive URLs are derived by lowercasing the values you enter. Prefer clean, URL-safe names.
+
+### Authors
+
+Create author bios in `src/content/authors/`.
 
 ```md
 ---
-title: "Author Name"
-meta_title: "Author Name - Astro Blog Theme"
-image: "../../assets/images/authors/author-image.jpg"
-description: "Author description"
+title: "Pham Nhat Hieu"
+meta_title: "Optional SEO title"
+image: "/images/authors/pham-nhat-hieu.webp"
+description: "Short author bio"
 social:
-  facebook: "https://facebook.com/username"
-  twitter: "https://twitter.com/username"
-  website: "https://hieupn.com"
+    facebook: "https://facebook.com/username"
+    twitter: "https://twitter.com/username"
+    instagram: "https://instagram.com/username"
+draft: false
 ---
 
-Author bio goes here...
+Author bio content goes here.
 ```
 
-## Customization
+Important:
 
-### Styling
+- Author archive pages are generated from the `authors` values inside post frontmatter.
+- The author bio card on an author archive page is matched against the author entry `title`, case-insensitively.
+- In practice, the post `authors` value should match the author entry `title` if you want the bio block to appear.
 
-This theme uses **Tailwind CSS v4** for styling, which emphasizes a CSS-first, minimal-configuration approach.
+### Standalone Pages
 
-**Key Styling Files:**
+Create standalone pages in `src/content/pages/`. Each file becomes a route handled by `src/pages/[slug].astro`.
 
-*   **`src/styles/global.css`**: This is the central file for Tailwind CSS setup and custom styles.
-    *   Tailwind's core styles (base, components, utilities) are imported via `@import "tailwindcss";`.
-    *   The `@tailwindcss/typography` plugin is included using `@plugin "@tailwindcss/typography";`.
-    *   You can customize the theme by modifying the CSS variables defined in this file, which control colors, fonts, and other aspects.
-    *   You can also add your own custom CSS rules here.
+```md
+---
+title: "Privacy Policy"
+meta_title: "Privacy Policy"
+description: "Privacy policy for the site"
+image: "/images/privacy-cover.png"
+draft: false
+---
 
-*   **`astro.config.mjs`**: The `@tailwindcss/vite` plugin is integrated here, but typically requires no direct configuration for v4 unless you have very specific needs.
+Page content goes here.
+```
 
-**Advanced Customization (Optional):**
+The filename becomes the route slug. The `404.md` entry is excluded from the generic page route and is handled separately.
 
-While most styling can be managed through `src/styles/global.css`, if you need to make advanced Tailwind customizations (e.g., adding complex custom themes, other specific Tailwind plugins that require JS configuration, or modifying Tailwind's default settings extensively), you can create a `tailwind.config.js` file in the project root. The `@tailwindcss/vite` plugin should automatically detect and use this file. Refer to the [official Tailwind CSS documentation](https://tailwindcss.com/docs) for details on `tailwind.config.js` options.
+### About Page
 
-### Adding New Pages
+The about page is a dedicated collection entry at `src/content/about/index.md`.
 
-Create a new `.astro` file in the `src/pages/` directory. The file path will determine the URL.
+```md
+---
+title: "About Hieu"
+meta_title: "About Hieu"
+image: "/images/profile.png"
+description: "Short about-page description"
+draft: false
+what_i_do:
+    title: "What I Bring"
+    items:
+        - title: "Backend Engineering"
+            description: "Designing APIs and application logic for production systems"
+        - title: "Cloud and DevOps"
+            description: "CI/CD, containers, cloud workflows, and delivery discipline"
+---
+
+About page body content goes here.
+```
+
+### MDX Components
+
+Posts and standalone pages automatically expose the components re-exported by `src/layouts/components/MarkdownComponents.astro`.
+
+Currently available widgets:
+
+- `Accordion`
+- `Button`
+- `ListCheck`
+- `Notice`
+- `Tab`
+- `Tabs`
+- `YouTubeEmbed`
+- `SeriesWidget`
+
+That means you can use them directly inside MDX content without adding local imports in each file.
+
+## Routes and Generated Output
+
+The current codebase generates these main route groups:
+
+- `/`: homepage
+- `/blog/` and `/blog/page/[page]/`: blog archive pages
+- `/<post-slug>/`: blog posts from `src/content/posts/`
+- `/about/`: dedicated about page
+- `/contact/`: contact page
+- `/authors/`, `/authors/[author]/`, `/authors/[author]/page/[page]/`
+- `/categories/`, `/categories/[category]/`, `/categories/[category]/page/[page]/`
+- `/tags/`, `/tags/[tag]/`, `/tags/[tag]/page/[page]/`
+- `/series/`: list of all post series
+- `/search/`: search UI
+- `/search.json`: generated search index consumed by Fuse.js
+- `/rss.xml`: RSS feed
+- `/privacy/`, `/terms/`, and other standalone pages created from `src/content/pages/`
+
+## Styling
+
+Global styling lives in `src/styles/global.css` and is powered by Tailwind CSS 4.
+
+The layout also includes:
+
+- a persistent light/dark theme toggle
+- critical inline theme logic to avoid a flash of the wrong theme on first load
+- shared header, footer, and SEO handling across all pages
+
+## Development Notes
+
+- Import aliases are defined in `tsconfig.json` for `@components`, `@layouts`, `@config`, `@utils`, `@styles`, and `@assets`.
+- The Astro dev server is configured to allow direct access to `src/assets` so string-based asset paths used by content can resolve during development.
+- The sitemap configuration filters out paginated pages and the search page.
 
 ## Deployment
 
-Build your site for production:
+The site builds to static output in `dist/`, which makes it suitable for static hosting providers such as Cloudflare Pages, Netlify, Vercel static output, GitHub Pages, or any standard web server.
+
+Build command:
 
 ```bash
 npm run build
 ```
 
-The built site will be in the `dist/` directory, ready to be deployed to your favorite hosting platform.
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built with [Astro](https://astro.build)
-- Styled with [Tailwind CSS](https://tailwindcss.com)
-- Icons from [Astro Icon](https://github.com/natemoo-re/astro-icon)
-- Search functionality with [Fuse.js](https://fusejs.io)
+This project is licensed under the MIT License. See `LICENSE` for details.
