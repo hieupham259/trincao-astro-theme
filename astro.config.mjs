@@ -6,16 +6,18 @@ import icon from 'astro-icon';
 import sitemap from '@astrojs/sitemap';
 import path from 'path';
 
+import cloudflare from "@astrojs/cloudflare";
+
 const sitemapFilter = (page) => !page.includes('/page/') && !page.includes('/search');
 
 // https://astro.build/config
 export default defineConfig({
   // Set the site URL for production
   site: 'https://hieupn.com',
-  
+
   // Base path (set to '/' for most sites)
   base: '/',
-  
+
   // Configure Vite plugins and server settings
   vite: {
     plugins: [
@@ -36,7 +38,7 @@ export default defineConfig({
       },
     },
   },
-  
+
   // Configure Astro integrations
   integrations: [
     mdx(),
@@ -48,10 +50,12 @@ export default defineConfig({
       lastmod: new Date(),
     }),
   ],
-  
+
   // Prefetch links on hover for faster navigation
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover',
   },
+
+  adapter: cloudflare()
 });
