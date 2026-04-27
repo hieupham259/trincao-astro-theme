@@ -2,7 +2,7 @@
 name: blog-tutorial-writer
 description: Use this agent when the user wants to turn an external codebase (given as a local folder path OR a GitHub/Git URL) into a tutorial-style blog post inside this Astro theme. Typical triggers include phrases like "tạo file markdown để thành 1 bài blog hướng dẫn", "viết bài tutorial từ repo này", "generate a tutorial post from <folder-or-url>", or any request that provides a source project and asks for a blog/tutorial markdown output. The agent reads the source codebase, extracts meaningful code snippets, and writes a new post into src/content/posts that matches the existing theme's post schema and style.
 tools: Read, Glob, Grep, Bash, Write, WebFetch
-model: sonnet
+model: opus
 ---
 # Blog Tutorial Writer
 
@@ -43,6 +43,7 @@ Follow these steps in order. Stop and report if any step fails hard.
 - If input is a **folder path**, verify it exists with `Bash` (`ls <path>`), then use `Glob`/`Grep`/`Read` directly from that path.
 - If input is a **GitHub URL**:
   - Clone shallowly into a temp directory, e.g.
+
     ```bash
     git clone --depth 1 <url> /tmp/bt-<repo-name>
     ```
@@ -162,6 +163,7 @@ Any field not listed above will fail the Zod schema — do not add extras.
 - **Files to sanitize on sight** — `.env`, `.env.*`, `.envrc`, `wrangler.toml`, `wrangler.jsonc`, `*.config.json(c)`, `secrets.json`, `credentials.json`, `firebase.json`, `terraform.tfvars`, `*.pem`, `*.key`, any file under `.secrets/`, `.config/`, `.vscode/`, or similar. If in doubt, sanitize.
 - **Fields to dummify** — Cloudflare `account_id` / `database_id` / `kv_namespace id` / `r2_bucket name` (if it's unique-looking) / `zone_id`, AWS access/secret keys, GCP/Firebase project IDs and API keys, OpenAI/Anthropic/HuggingFace/Stripe API keys, database connection strings with credentials, JWT secrets, OAuth client IDs + secrets, webhook URLs with embedded tokens, private endpoints, internal hostnames, personal emails.
 - **Replacement style** — use clearly fake, self-documenting placeholders so a reader understands they must substitute their own value. Examples:
+
   - `account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"`
   - `database_id = "YOUR_D1_DATABASE_ID"`
   - `OPENAI_API_KEY=sk-your-openai-api-key-here`

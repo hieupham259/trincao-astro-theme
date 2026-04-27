@@ -7,8 +7,8 @@ image: "../../assets/images/cloudflare-worker.png"
 authors: ["hieupn"]
 categories: ["Web Development"]
 tags: ["cloudflare", "hono", "react", "drizzle-orm", "d1", "better-auth", "typescript", "workers-ai"]
+series: ["Cloudflare Workers", "4"]
 ---
-
 Modern full-stack applications do not have to span multiple services, infrastructure providers, or deployment pipelines. This tutorial walks through building a complete, authenticated todo application — React frontend, REST API, relational database, session store, and AI features — deployed as a single Cloudflare Worker. Every piece of the stack runs at the edge.
 
 ## What We Are Building
